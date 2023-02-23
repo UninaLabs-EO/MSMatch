@@ -5,7 +5,6 @@ __pycache__/
 
 # C extensions
 *.so
-
 # Distribution / packaging
 .Python
 build/
@@ -134,3 +133,5 @@ my_notebooks
 .vscode
 Class F1 Plot.pdf
 class_f1.pdf
+
+*.pkl

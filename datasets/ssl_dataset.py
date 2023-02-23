@@ -10,6 +10,8 @@ from .ucm_dataset import UCMDataset
 from .aid_dataset import AIDDataset
 from .eurosat_rgb_dataset import EurosatRGBDataset
 from .eurosat_dataset import EurosatDataset
+from .thraws_B8AB11B12_dataset import ThrawsB8AB11B12Dataset
+
 
 import torchvision
 from torchvision import datasets, transforms
@@ -38,6 +40,9 @@ mean["eurosat_ms"] = [
         145.87144681,
     ]
 ]
+
+mean['thraws_swir']=[0,0,0] # zero mean
+std['thraws_swir']=[(2**12)-1,(2**12)-1,(2**12)-1] # 12 bit sampling
 
 std["cifar10"] = [x / 255 for x in [63.0, 62.1, 66.7]]
 std["cifar100"] = [x / 255 for x in [68.2, 65.4, 70.4]]
@@ -133,6 +138,9 @@ class SSL_Dataset:
             dset = EurosatRGBDataset(train=self.train, seed=self.seed)
         elif self.name == "eurosat_ms":
             dset = EurosatDataset(train=self.train, seed=self.seed)
+        elif self.name == "thraws_swir":
+            dset = ThrawsB8AB11B12Dataset(train=self.train, seed=self.seed)
+            
 
         if self.name == "cifar10":
             self.label_encoding = None
