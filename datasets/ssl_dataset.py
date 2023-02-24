@@ -42,7 +42,8 @@ mean["eurosat_ms"] = [
 ]
 
 mean['thraws_swir']=[0,0,0] # zero mean
-std['thraws_swir']=[(2**12)-1,(2**12)-1,(2**12)-1] # 12 bit sampling
+# std['thraws_swir']=[(2**8)-1,(2**8)-1,(2**8)-1] # 8 bit sampling
+std['thraws_swir']=[1,1,1] # 8 bit sampling
 
 std["cifar10"] = [x / 255 for x in [63.0, 62.1, 66.7]]
 std["cifar100"] = [x / 255 for x in [68.2, 65.4, 70.4]]
@@ -122,6 +123,7 @@ class SSL_Dataset:
         # need to use different augmentations for multispectral
         if self.name == "eurosat_ms":
             self.use_ms_augmentations = True
+
 
     def get_data(self):
         """

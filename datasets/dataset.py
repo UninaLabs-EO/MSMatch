@@ -6,6 +6,7 @@ from .augmentation.randaugment import RandAugment
 from PIL import Image
 import numpy as np
 import copy
+import torch
 
 
 class BasicDataset(Dataset):
@@ -80,6 +81,7 @@ class BasicDataset(Dataset):
 
         img = self.data[idx]
         if self.transform is None:
+            print('PUCCIOSTERZA')
             return transforms.ToTensor()(img), target
         else:
             if isinstance(img, np.ndarray) and not self.use_ms_augmentations:

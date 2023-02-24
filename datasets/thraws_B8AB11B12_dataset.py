@@ -33,6 +33,21 @@ class ThrawsB8AB11B12Dataset(torch.utils.data.Dataset):
         self.N = 4528
         self._load_data()
 
+    def _normalize_to_0_to_1(self, img):
+        """Normalizes the passed image to 0 to 1
+
+        Args:
+            img (np.array): image to normalize
+
+        Returns:
+            np.array: normalized image
+        """
+        # img = img + np.minimum(0, np.min(img))  # move min to 0
+        # img = img / np.max(img)  # scale to 0 to 1
+        img = img / 4095  # scale to 0 to 1
+        return img
+
+
     def _load_data(self):
         """Loads the data from the passed root directory. Splits in test/train based on seed. By default resized to 256,256
         """
@@ -50,7 +65,7 @@ class ThrawsB8AB11B12Dataset(torch.utils.data.Dataset):
                 sub_f = os.path.join(f, subitem)
                 filenames.append(sub_f)
                 # a few images are a few pixels off, we will resize them
-                images[i] = pd.read_pickle(sub_f)
+                images[i] = img_as_ubyte(self._normalize_to_0_to_1(pd.read_pickle(sub_f)))
                 i += 1
                 labels.append(item)
 
